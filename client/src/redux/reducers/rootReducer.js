@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import petReducer from './petReducer';
+import campsiteReducer from './campsiteReducer';
 import reminderReducer from './reminderReducer';
 import authReducer from './authReducer';
 import alertReducer from './alertReducer';
 
 export default combineReducers({
-	petReducer: petReducer,
+	campsiteReducer: campsiteReducer,
 	reminderReducer: reminderReducer,
 	authReducer: authReducer,
 	alertReducer: alertReducer,

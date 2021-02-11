@@ -1,11 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Alert from '../components/partials/Alert/Alert';
-import Pets from '../components/pages/Pets/Pets';
+import Campsites from '../components/pages/Campsites/Campsites';
 import Home from '../components/pages/Home/Home';
 import Login from '../components/pages/Login/Login';
 import Register from '../components/pages/Register/Register';
-import PetProfile from '../components/pages/Pets/PetProfile';
+import CampsiteProfile from '../components/pages/Campsites/CampsiteProfile';
 import Reminders from '../components/pages/Reminders/Reminders';
 import NotFound from '../components/pages/NotFound/NotFound';
 import PrivateRoute from './PrivateRoute';
@@ -15,13 +15,17 @@ const Routes = () => {
 		<>
 			<Alert />
 			<Switch>
-				<PrivateRoute component={Pets} path='/pets' exact />
-				<PrivateRoute component={PetProfile} path='/pets/:id' exact />
+				<PrivateRoute component={Campsites} path='/campsites' exact />
+				<PrivateRoute
+					component={CampsiteProfile}
+					path='/campsites/:id'
+					exact
+				/>
 				<PrivateRoute component={Reminders} path='/reminders/' exact />
 				{/* <PrivateRoute component={Login} path='/login' exact />
 				<PrivateRoute component={Register} path='/register' exact /> */}
-				{/* <Route path='/pets'>
-					<Pets />
+				{/* <Route path='/campsites'>
+					<Campsites />
 				</Route> */}
 				<Route exact path='/'>
 					<Home />

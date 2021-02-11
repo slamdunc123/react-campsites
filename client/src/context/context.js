@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 const brand = {
-	name: 'Pet Reminder',
+	name: 'Campsites',
 };
 
 export const BrandContext = createContext(brand);

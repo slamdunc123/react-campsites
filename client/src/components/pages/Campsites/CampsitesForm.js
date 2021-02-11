@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { initialValues, validationSchema } from './petsFormConfig';
+import { initialValues, validationSchema } from './campsitesFormConfig';
 import moment from 'moment';
 import FileBase from 'react-file-base64';
-import './pets.scss';
+import './campsites.scss';
 
-const PetsForm = ({ isEditing, editedPet, handleCreate, handleUpdate }) => {
-	const { name, desc, dob, age } = editedPet;
+const CampsitesForm = ({
+	isEditing,
+	editedCampsite,
+	handleCreate,
+	handleUpdate,
+}) => {
+	const { name, desc, dob, age } = editedCampsite;
 	const [imageFile, setImageFile] = useState();
 	const [isImageFileSize, setIsImageFileSize] = useState(true);
 
@@ -38,7 +43,7 @@ const PetsForm = ({ isEditing, editedPet, handleCreate, handleUpdate }) => {
 			const formData = getFormData(fields);
 			console.log(formData);
 			isEditing
-				? handleUpdate(editedPet.id, formData)
+				? handleUpdate(editedCampsite.id, formData)
 				: handleCreate(formData);
 			resetForm(initialValues);
 		}
@@ -172,4 +177,4 @@ const PetsForm = ({ isEditing, editedPet, handleCreate, handleUpdate }) => {
 	);
 };
 
-export default PetsForm;
+export default CampsitesForm;

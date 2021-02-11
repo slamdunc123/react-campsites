@@ -15,7 +15,7 @@ const app = express();
 // 	client.messages
 // 		.create({
 // 			body:
-// 				'Hi Jules. Pet reminders here. Your beautiful bear cub Bezza Boo is due a great big kiss today. Please remember or she gets sad.',
+// 				'Hi Jules. Campsite reminders here. Your beautiful bear cub Bezza Boo is due a great big kiss today. Please remember or she gets sad.',
 // 			from: '+12517584500',
 // 			// to: '+447939912487',
 // 			to: '+447968903859',
@@ -37,7 +37,7 @@ app.use(
 // app.get('/', (req, res) => res.send('test route successful'));
 
 // define routes
-app.use('/api/pets', require('./routes/api/pets')); //localhost:5000/api/pets
+app.use('/api/campsites', require('./routes/api/campsites')); //localhost:5000/api/campsites
 app.use('/api/auth', require('./routes/api/auth')); // http://localhost:5000/api/auth
 app.use('/api/users', require('./routes/api/users')); // http://localhost:5000/api/users
 app.use('/api/reminders', require('./routes/api/reminders')); //localhost:5000/api/reminders

@@ -46,14 +46,14 @@ const Reminders = ({ location }) => {
 	};
 	// console.log(user._id);
 
-	const getPetId = () => {
-		return location.petId;
+	const getCampsiteId = () => {
+		return location.campsiteId;
 	};
 
 	const handleCreate = (formData) => {
 		setShowModal(false);
 		setIsEditing(false);
-		dispatch(createReminder(formData, getUserId(), getPetId()));
+		dispatch(createReminder(formData, getUserId(), getCampsiteId()));
 	};
 
 	const handleAdd = () => {
@@ -123,7 +123,7 @@ const Reminders = ({ location }) => {
 
 	useEffect(() => {
 		dispatch(resetAlerts());
-		dispatch(getReminders(getUserId(), getPetId()));
+		dispatch(getReminders(getUserId(), getCampsiteId()));
 		setUpdatedReminder(false);
 	}, [updatedReminder, dispatch]);
 
@@ -186,7 +186,7 @@ const Reminders = ({ location }) => {
 										</tr>
 									);
 							  })
-							: 'No reminders for this pet'}
+							: 'No reminders for this campsite'}
 					</tbody>
 				</table>
 			</div>

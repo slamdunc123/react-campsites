@@ -1,7 +1,7 @@
-export const GET_PETS = 'GET_PETS';
-export const CREATE_PET = 'CREATE_PET';
-export const DELETE_PET = 'DELETE_PET';
-export const UPDATE_PET = 'UPDATE_PET';
+export const GET_CAMPSITES = 'GET_CAMPSITES';
+export const CREATE_CAMPSITE = 'CREATE_CAMPSITE';
+export const DELETE_CAMPSITE = 'DELETE_CAMPSITE';
+export const UPDATE_CAMPSITE = 'UPDATE_CAMPSITE';
 
 export const GET_REMINDERS = 'GET_REMINDERS';
 export const CREATE_REMINDER = 'CREATE_REMINDER';

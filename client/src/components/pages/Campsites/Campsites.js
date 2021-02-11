@@ -1,39 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from '../../partials/Spinner/Spinner';
-import PetsForm from './PetsForm';
-import PetRecord from './PetRecord';
-import PetsTable from './PetsTable';
+import CampsitesForm from './CampsitesForm';
+import CampsiteRecord from './CampsiteRecord';
+import CampsitesTable from './CampsitesTable';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	getPets,
-	createPet,
-	deletePet,
-	updatePet,
-} from '../../../redux/actions/petActions';
+	getCampsites,
+	createCampsite,
+	deleteCampsite,
+	updateCampsite,
+} from '../../../redux/actions/campsiteActions';
 import { resetAlerts } from '../../../redux/actions/alertActions';
 import Modal from '../../partials/Modal/Modal';
 
-const Pets = () => {
+const Campsites = () => {
 	const alerts = useSelector((state) => state.alertReducer);
 	const { token, isAuthenticated, user } = useSelector(
 		(state) => state.authReducer
 	);
-	const pets = useSelector((state) => state.petReducer.pets); //gets from rootReducer which has petReducer imported
-	const loading = useSelector((state) => state.petReducer.loading); //gets from rootReducer which has petReducer imported
+	const campsites = useSelector((state) => state.campsiteReducer.campsites); //gets from rootReducer which has campsiteReducer imported
+	const loading = useSelector((state) => state.campsiteReducer.loading); //gets from rootReducer which has campsiteReducer imported
 	const dispatch = useDispatch();
 	const [isEditing, setIsEditing] = useState(false);
-	const [editedPet, setEditedPet] = useState({
+	const [editedCampsite, setEditedCampsite] = useState({
 		id: '',
 		name: '',
 		desc: '',
 		dob: '',
 		age: '',
 	});
-	const [updatedPet, setUpdatedPet] = useState(false);
+	const [updatedCampsite, setUpdatedCampsite] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [modalTitle, setModalTitle] = useState('');
-	const [petId, setPetId] = useState();
+	const [campsiteId, setCampsiteId] = useState();
 	const [display, setDisplay] = useState('records');
 
 	const getUserId = () => {
@@ -49,7 +49,7 @@ const Pets = () => {
 	const handleCreate = (formData) => {
 		setShowModal(false);
 		setIsEditing(false);
-		dispatch(createPet(formData, getUserId()));
+		dispatch(createCampsite(formData, getUserId()));
 	};
 
 	const handleAdd = () => {
@@ -61,15 +61,15 @@ const Pets = () => {
 	const handleUpdate = (id, formData) => {
 		setShowModal(false);
 		setIsEditing(false);
-		setUpdatedPet(true);
-		dispatch(updatePet(id, formData));
+		setUpdatedCampsite(true);
+		dispatch(updateCampsite(id, formData));
 	};
 
 	const handleEdit = (id, name, desc, age, dob) => {
 		setShowModal(true);
 		setModalTitle('edit');
 		setIsEditing(true);
-		setEditedPet({
+		setEditedCampsite({
 			id: id,
 			name: name,
 			desc: desc,
@@ -80,11 +80,11 @@ const Pets = () => {
 
 	const handleDelete = () => {
 		setShowModal(false);
-		dispatch(deletePet(petId));
+		dispatch(deleteCampsite(campsiteId));
 	};
 
 	const handleRemove = (id) => {
-		setPetId(id);
+		setCampsiteId(id);
 		setShowModal(true);
 		setModalTitle('delete');
 	};
@@ -99,9 +99,9 @@ const Pets = () => {
 				</button>
 			</>
 		) : (
-			<PetsForm
+			<CampsitesForm
 				isEditing={isEditing}
-				editedPet={editedPet}
+				editedCampsite={editedCampsite}
 				handleCreate={handleCreate}
 				handleUpdate={handleUpdate}
 			/>
@@ -125,11 +125,11 @@ const Pets = () => {
 		console.log(e.target.value);
 	};
 
-	const getPetRecordsDisplay = () => {
-		return pets.map((pet) => (
-			<div key={pet._id} className='col-lg-4 col-sm-6 mb-4'>
-				<PetRecord
-					pet={pet}
+	const getCampsiteRecordsDisplay = () => {
+		return campsites.map((campsite) => (
+			<div key={campsite._id} className='col-lg-4 col-sm-6 mb-4'>
+				<CampsiteRecord
+					campsite={campsite}
 					handleRemove={handleRemove}
 					handleEdit={handleEdit}
 					handleAdd={handleAdd}
@@ -138,9 +138,9 @@ const Pets = () => {
 		));
 	};
 
-	const getPetTableDisplay = () => (
-		<PetsTable
-			pets={pets}
+	const getCampsiteTableDisplay = () => (
+		<CampsitesTable
+			campsites={campsites}
 			handleRemove={handleRemove}
 			handleEdit={handleEdit}
 			handleAdd={handleAdd}
@@ -149,22 +149,22 @@ const Pets = () => {
 
 	const getDisplay = () => {
 		if (display === 'records') {
-			return getPetRecordsDisplay();
+			return getCampsiteRecordsDisplay();
 		} else {
-			return getPetTableDisplay();
+			return getCampsiteTableDisplay();
 		}
 	};
 
 	useEffect(() => {
 		dispatch(resetAlerts());
-		dispatch(getPets(getUserId()));
-		setUpdatedPet(false);
-	}, [updatedPet, dispatch]);
+		dispatch(getCampsites(getUserId()));
+		setUpdatedCampsite(false);
+	}, [updatedCampsite, dispatch]);
 
 	return (
 		<div className='container'>
 			{showModal ? getModal() : false}
-			<h3>Pets</h3>
+			<h3>Campsites</h3>
 			<button
 				className='btn'
 				disabled={alerts.length > 0}
@@ -203,14 +203,14 @@ const Pets = () => {
 			<div className='row mt-4'>
 				{loading ? (
 					<Spinner />
-				) : pets.length > 0 ? (
+				) : campsites.length > 0 ? (
 					getDisplay()
 				) : (
-					<p>No pets to display - please add one</p>
+					<p>No campsites to display - please add one</p>
 				)}
 			</div>
 		</div>
 	);
 };
 
-export default Pets;
+export default Campsites;

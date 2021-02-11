@@ -36,10 +36,10 @@ const NavMenu = () => {
 					</Link>
 					<Link
 						className='nav-item nav-link'
-						to='/pets'
+						to='/campsites'
 						onClick={handleOnClick}
 					>
-						Pets
+						Campsites
 					</Link>
 					<Link
 						className='nav-item nav-link'

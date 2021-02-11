@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PetsForm from './PetsForm';
+import CampsitesForm from './CampsitesForm';
 import Modal from '../../partials/Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
-	getPets,
-	deletePet,
-	updatePet,
-} from '../../../redux/actions/petActions';
+	getCampsites,
+	deleteCampsite,
+	updateCampsite,
+} from '../../../redux/actions/campsiteActions';
 import { resetAlerts } from '../../../redux/actions/alertActions';
 
-const PetProfile = () => {
+const CampsiteProfile = () => {
 	const dispatch = useDispatch();
-	const pets = useSelector((state) => state.petReducer.pets);
+	const campsites = useSelector((state) => state.campsiteReducer.campsites);
 	const alerts = useSelector((state) => state.alertReducer);
 	const [showModal, setShowModal] = useState(false);
 	const [modalTitle, setModalTitle] = useState('');
 	const [isEditing, setIsEditing] = useState(false);
-	const [editedPet, setEditedPet] = useState({
+	const [editedCampsite, setEditedCampsite] = useState({
 		id: '',
 		name: '',
 		desc: '',
 	});
-	const [updatedPet, setUpdatedPet] = useState(false);
-	const [petId, setPetId] = useState();
+	const [updatedCampsite, setUpdatedCampsite] = useState(false);
+	const [campsiteId, setCampsiteId] = useState();
 
 	const history = useHistory();
 	const { location: pathname } = history;
@@ -40,15 +40,15 @@ const PetProfile = () => {
 	const handleUpdate = (id, formData) => {
 		setShowModal(false);
 		setIsEditing(false);
-		setUpdatedPet(true);
-		dispatch(updatePet(id, formData));
+		setUpdatedCampsite(true);
+		dispatch(updateCampsite(id, formData));
 	};
 
 	const handleEdit = (id, name, desc, age, dob) => {
 		setShowModal(true);
 		setModalTitle('edit');
 		setIsEditing(true);
-		setEditedPet({
+		setEditedCampsite({
 			id: id,
 			name: name,
 			desc: desc,
@@ -59,12 +59,12 @@ const PetProfile = () => {
 
 	const handleDelete = () => {
 		setShowModal(false);
-		dispatch(deletePet(petId));
-		history.push('/pets');
+		dispatch(deleteCampsite(campsiteId));
+		history.push('/campsites');
 	};
 
 	const handleRemove = (id) => {
-		setPetId(id);
+		setCampsiteId(id);
 		setShowModal(true);
 		setModalTitle('delete');
 	};
@@ -79,9 +79,9 @@ const PetProfile = () => {
 				</button>
 			</>
 		) : (
-			<PetsForm
+			<CampsitesForm
 				isEditing={isEditing}
-				editedPet={editedPet}
+				editedCampsite={editedCampsite}
 				handleUpdate={handleUpdate}
 			/>
 		);
@@ -97,49 +97,53 @@ const PetProfile = () => {
 		);
 	};
 
-	//TODO: not clear why this is fixing the refresh issue on a selected pet profile page
-	let pet;
-	if (pets !== []) {
-		pet = pets.find((pet) => pet._id === pathUrlLastItem);
+	//TODO: not clear why this is fixing the refresh issue on a selected campsite profile page
+	let campsite;
+	if (campsites !== []) {
+		campsite = campsites.find(
+			(campsite) => campsite._id === pathUrlLastItem
+		);
 	}
 
 	useEffect(() => {
 		dispatch(resetAlerts());
-		dispatch(getPets(getUserId()));
-		setUpdatedPet(false);
-	}, [updatedPet, dispatch]);
+		dispatch(getCampsites(getUserId()));
+		setUpdatedCampsite(false);
+	}, [updatedCampsite, dispatch]);
 
 	return (
 		<>
-			<div>Pet Profile</div>
+			<div>Campsite Profile</div>
 			{showModal ? getModal() : false}
-			{pet !== undefined ? (
+			{campsite !== undefined ? (
 				<div className='card'>
 					<div className='text-center'>
-						{pet.imageFile ? (
+						{campsite.imageFile ? (
 							<img
-								src={pet.imageFile}
+								src={campsite.imageFile}
 								alt=''
 								class='rounded-circle'
 								width='100'
 								height='100'
 							/>
 						) : (
-							<i className='fas fa-paw fa-4x text-primary'></i>
+							<i className='fas fa-campground fa-4x text-primary'></i>
 						)}
 					</div>
 					<div className='card-body'>
-						<h5 className='card-title text-center'>{pet.name}</h5>
-						<p className='card-text'>{pet.desc}</p>
+						<h5 className='card-title text-center'>
+							{campsite.name}
+						</h5>
+						<p className='card-text'>{campsite.desc}</p>
 						<div className='row justify-content-center'>
 							<button
 								onClick={() =>
 									handleEdit(
-										pet._id,
-										pet.name,
-										pet.desc,
-										pet.age,
-										pet.dob
+										campsite._id,
+										campsite.name,
+										campsite.desc,
+										campsite.age,
+										campsite.dob
 									)
 								}
 								className='btn'
@@ -148,7 +152,7 @@ const PetProfile = () => {
 								<i className='fas fa-pencil-alt text-warning'></i>
 							</button>
 							<button
-								onClick={() => handleRemove(pet._id)}
+								onClick={() => handleRemove(campsite._id)}
 								className='btn'
 								disabled={alerts.length > 0}
 							>
@@ -160,7 +164,7 @@ const PetProfile = () => {
 								title='reminders'
 								to={{
 									pathname: '/reminders',
-									petId: pathUrlLastItem,
+									campsiteId: pathUrlLastItem,
 								}}
 							>
 								<i className='fas fa-clock text-info'></i>
@@ -175,4 +179,4 @@ const PetProfile = () => {
 	);
 };
 
-export default PetProfile;
+export default CampsiteProfile;

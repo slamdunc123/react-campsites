@@ -6,9 +6,11 @@ import { UPDATE_REMINDER } from './types';
 import { setAlert } from './alertActions';
 
 // get reminders
-export const getReminders = (id, petId) => async (dispatch) => {
+export const getReminders = (id, campsiteId) => async (dispatch) => {
 	try {
-		const res = await axios.get(`/api/reminders/${id}?petId=${petId}`);
+		const res = await axios.get(
+			`/api/reminders/${id}?campsiteId=${campsiteId}`
+		);
 
 		dispatch({
 			type: GET_REMINDERS,
@@ -20,14 +22,16 @@ export const getReminders = (id, petId) => async (dispatch) => {
 };
 
 // create reminder
-export const createReminder = (formData, userId, petId) => async (dispatch) => {
-	console.log('createReminder fired', formData, userId, petId);
+export const createReminder = (formData, userId, campsiteId) => async (
+	dispatch
+) => {
+	console.log('createReminder fired', formData, userId, campsiteId);
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	};
-	const body = { ...formData, userId, petId };
+	const body = { ...formData, userId, campsiteId };
 	console.log(body);
 
 	try {

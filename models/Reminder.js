@@ -13,7 +13,7 @@ const ReminderSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	petId: {
+	campsiteId: {
 		type: String,
 		required: true,
 	},

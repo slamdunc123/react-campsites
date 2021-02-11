@@ -64,8 +64,8 @@ router.get('/', async (req, res) => {
 // 	}
 // });
 
-// @router  GET api/reminders - http://localhost:5000/api/reminders/1?petId=2
-// @desc    Get reminders by userId and filter by petId
+// @router  GET api/reminders - http://localhost:5000/api/reminders/1?campsiteId=2
+// @desc    Get reminders by userId and filter by campsiteId
 // @access  Public
 
 router.get('/:userId', async (req, res) => {
@@ -73,8 +73,8 @@ router.get('/:userId', async (req, res) => {
 	console.log(req.query);
 	try {
 		const reminders = await Reminder.find({ userId: req.params.userId })
-			.where('petId')
-			.equals(req.query.petId);
+			.where('campsiteId')
+			.equals(req.query.campsiteId);
 		res.json(reminders);
 	} catch (err) {
 		console.error(err.message);
@@ -104,7 +104,7 @@ router.post('/', async (req, res) => {
 			name: req.body.name,
 			date: req.body.date,
 			userId: req.body.userId,
-			petId: req.body.petId,
+			campsiteId: req.body.campsiteId,
 		});
 		console.log('newReminder', newReminder);
 		// save item to database

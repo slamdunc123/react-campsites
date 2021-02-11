@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const PetSchema = new mongoose.Schema({
+const CampsiteSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
@@ -26,4 +26,4 @@ const PetSchema = new mongoose.Schema({
 	},
 });
 
-module.exports = Pet = mongoose.model('pet', PetSchema);
+module.exports = Campsite = mongoose.model('campsite', CampsiteSchema);
